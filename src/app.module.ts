@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from './config/config';
+import { PlayerModule } from './modules/players/players.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import config from './config/config';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    PlayerModule
   ],
 })
 export class AppModule {}

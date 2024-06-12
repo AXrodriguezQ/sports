@@ -5,7 +5,7 @@ export default () => ({
         port : parseInt(process.env.DATABASE_PORT),
         username : process.env.DATABASE_USERNAME,
         password : process.env.DATABASE_PASSWORD,
-        db : 'mysql',
+        db : process.env.DATABASE_NAME,
     },
     nest: {
         port : parseInt(process.env.PORT)

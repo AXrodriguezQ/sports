@@ -1,17 +1,17 @@
 import { Tournament } from "src/modules/tournament/entities/tournament.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('players')
 export class Player {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column()
     name: string;
 
     @Column()
-    position: string;
+    position?: string;
 
     @Column()
     age: number;
@@ -19,5 +19,8 @@ export class Player {
     @ManyToOne(() => Tournament, ( tournament ) => tournament.players)
     @JoinColumn({ name: 'tournament_id' })
     tournament: Tournament;
+
+    @DeleteDateColumn()
+    deletedAt: Date;
 
 }

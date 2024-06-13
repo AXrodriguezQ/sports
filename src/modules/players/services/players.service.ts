@@ -14,15 +14,6 @@ export class PlayerService {
 
     async createPlayer( createPlayerDto: CreatePlayerDto ): Promise<Player | Object> {
         try {
-            
-            const verifyPlayer = await this.playerRepository.findOneBy({ id: createPlayerDto.id })
-
-            if ( verifyPlayer ) {
-                return {
-                    status: 200,
-                    message: 'Player already exist',
-                }
-            }
 
             const newPlayer = this.playerRepository.create(createPlayerDto);
 

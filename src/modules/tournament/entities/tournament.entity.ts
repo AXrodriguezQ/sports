@@ -19,7 +19,7 @@ export class Tournament {
     @Column()
     endDate?: Date;
 
-    @OneToMany(() => Player, ( player ) => player.tournament)
+    @OneToMany(() => Player, ( player ) => player.tournament, { eager: true })
     players: Player[];
 
     @DeleteDateColumn()

@@ -120,9 +120,11 @@ export class TournamentService {
 
             if ( !tournament || !player ) throw new HttpException("Tournament or player not found", HttpStatus.NOT_FOUND)
 
-            const add = await this.playerRepository.preload({ id: idPlayer, tournament: tournament })
-
-            await this.playerRepository.save(add)
+            if (!tournament.players.includes(player)) {
+                tournament.players.push(player);
+            
+                await this.tournamentRepository.save(tournament);
+              }
 
         } catch (err) {
             throw new Error(err)

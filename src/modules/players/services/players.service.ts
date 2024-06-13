@@ -9,15 +9,11 @@ import { UpdatePlayerDto } from "../dtos/update-player.dto";
 export class PlayerService {
 
     constructor(
-        @InjectRepository(Player) private readonly playerRepository: Repository<Player>
+        @InjectRepository(Player) private readonly playerRepository: Repository<Player>,
     ) {}
 
-    async createPlayer( createPlayerDto: CreatePlayerDto ): Promise<Player> {
+    async createPlayer( createPlayerDto: CreatePlayerDto ): Promise<Player | Object> {
         try {
-            
-            const verifyPlayer = await this.playerRepository.findOneBy({ id: createPlayerDto.id })
-
-            if ( verifyPlayer ) throw new HttpException('Player already exists', 404);
 
             const newPlayer = this.playerRepository.create(createPlayerDto);
 
@@ -49,7 +45,7 @@ export class PlayerService {
         }
     }
 
-    async getPlayerById( idPlayer: string ): Promise<Player | Object> {
+    async getPlayerById( idPlayer: string ): Promise<Player | object> {
         try {
 
             //const player = await this.playerRepository.findOneBy({ id: idPlayer })

@@ -14,7 +14,7 @@ async function bootstrap() {
 
   await app.listen(PORT);
 
-  console.log(`App is listening in: http://localhost:/api/v1/${PORT}`);
+  console.log(`App is listening in: http://localhost:${PORT}/api/v1/`);
 
 }
 

@@ -12,7 +12,7 @@ export class PlayerCOntroller {
     ) {}
 
     @Post()
-    createPlayer( @Body() createPlayerDto: CreatePlayerDto ): Promise<Player> {
+    createPlayer( @Body() createPlayerDto: CreatePlayerDto ): Promise<Player | Object> {
         return this.playerService.createPlayer( createPlayerDto );
     } 
 

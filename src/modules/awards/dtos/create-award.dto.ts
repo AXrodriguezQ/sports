@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
-export class CreatePlayerDto {
+export class CreateAwardDto {
 
     @IsString()
     @IsOptional()
@@ -10,12 +10,8 @@ export class CreatePlayerDto {
     @IsNotEmpty()
     name: string;
         
-    @IsString()
-    @IsOptional()
-    position: string;
-    
     @IsNumber()
-    @IsNotEmpty()
-    age: number;
+    @IsOptional()
+    points: number;
 
 }

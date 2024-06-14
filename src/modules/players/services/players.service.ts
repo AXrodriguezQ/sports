@@ -89,7 +89,7 @@ export class PlayerService {
     async deletePlayer( idPlayer: string ): Promise<string> {
         try {
             
-            this.playerRepository.softDelete(idPlayer);
+            await this.playerRepository.softDelete(idPlayer);
 
             return `Player with id ${idPlayer} has been deleted`;
 

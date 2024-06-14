@@ -36,4 +36,9 @@ export class PlayerCOntroller {
         return this.playerService.deletePlayer( idPlayer );
     }
 
+    @Post(':id/awards/:idAward')
+    addAwardToPlayer( @Param('id') idPlayer: string, @Param('idAward') idAward: string ): Promise<void> {
+        return this.playerService.addAwardToPlayer( idPlayer, idAward );
+    }
+
 }

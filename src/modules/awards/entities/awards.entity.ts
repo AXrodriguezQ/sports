@@ -1,6 +1,7 @@
-import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Player } from "src/modules/players/entities/player.entity";
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('players')
+@Entity('awards')
 export class Award {
 
     @PrimaryGeneratedColumn('uuid')
@@ -11,6 +12,9 @@ export class Award {
 
     @Column()
     points: number;
+
+    @OneToMany(() => Player, (player) => player.award, { eager: true })
+    players: Player[];
 
     @DeleteDateColumn()
     deletedAt: Date;

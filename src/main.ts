@@ -12,6 +12,8 @@ async function bootstrap() {
 
   app.setGlobalPrefix('/api/v1')
 
+  app.useGlobalPipes()
+
   await app.listen(PORT);
 
   console.log(`App is listening in: http://localhost:${PORT}/api/v1/`);

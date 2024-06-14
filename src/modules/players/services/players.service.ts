@@ -4,12 +4,14 @@ import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreatePlayerDto } from "../dtos/create-player.dto";
 import { UpdatePlayerDto } from "../dtos/update-player.dto";
+import { Award } from "src/modules/awards/entities/awards.entity";
 
 @Injectable()
 export class PlayerService {
 
     constructor(
         @InjectRepository(Player) private readonly playerRepository: Repository<Player>,
+        @InjectRepository(Award) private readonly awardRepository: Repository<Award>,
     ) {}
 
     async createPlayer( createPlayerDto: CreatePlayerDto ): Promise<Player | Object> {
@@ -29,7 +31,7 @@ export class PlayerService {
     async getPlayers(): Promise<Player[] | Object> {
         try {
             
-            const players = await this.playerRepository.find({ relations: ['tournament'] });
+            const players = await this.playerRepository.find({ relations: ['tournament', 'award'] });
 
             if ( players.length === 0 ) {
                 return {
@@ -92,6 +94,28 @@ export class PlayerService {
             await this.playerRepository.softDelete(idPlayer);
 
             return `Player with id ${idPlayer} has been deleted`;
+
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async addAwardToPlayer( idPlayer: string, idAward: string ): Promise<void> {
+        try {
+            
+            const player: Player = await this.playerRepository.findOneBy({ id: idPlayer })
+
+            const award: Award = await this.awardRepository.findOneBy({ id: idAward })
+
+            if ( !award || !player ) throw new HttpException("Award or player not found", HttpStatus.NOT_FOUND)
+                
+            if (!award.players.includes(player)) {
+                award.players.push(player);
+            
+                await this.awardRepository.save(player);
+            }
+
+            'NOT'
 
         } catch (err) {
             throw new Error(err);
